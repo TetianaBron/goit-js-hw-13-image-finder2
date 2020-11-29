@@ -1,12 +1,15 @@
 import './styles.scss';
+import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+const debounce = require('lodash.debounce');
 
 import {fetchImages, page} from './js/apiService';
 import photoCardTpl from '../templates/photo-card.hbs';
+import openModal from './js/openModal';
 
 import getRefs from './js/getRefs';
 const refs = getRefs();
 
-const debounce = require('lodash.debounce');
+
 
 const loadMore = document.createElement('button');
 loadMore.className = 'load-more load-more_hidden';
@@ -41,4 +44,6 @@ function renderImagesList(images, isReset) {
     if (isReset) refs.gallery.innerHTML = markup;
     else refs.gallery.innerHTML += markup;
 }
+
+
 
