@@ -8,15 +8,28 @@ function page() {
     return numberOfpage + 1;
 }
  
-function fetchImages(searchQuery) { 
+// function fetchImages(searchQuery) { 
+//     if (searchQuery !== prevQuery) numberOfpage = 0;
+//     prevQuery = searchQuery;
+//     numberOfpage++;
+//     return fetch(`${BASE_URL}/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${numberOfpage}&per_page=${perPage}&key=${KEY}`)
+//         .then(response => {
+//             return response.json();
+//         })
+//         .catch(error => console.log(error));
+// }
+
+
+async function fetchImages(searchQuery) { 
     if (searchQuery !== prevQuery) numberOfpage = 0;
     prevQuery = searchQuery;
     numberOfpage++;
-    return fetch(`${BASE_URL}/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${numberOfpage}&per_page=${perPage}&key=${KEY}`)
-        .then(response => {
-            return response.json();
-        })
-        .catch(error => console.log(error));
+
+    const response = await fetch(`${BASE_URL}/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${numberOfpage}&per_page=${perPage}&key=${KEY}`);
+    const newImg = await response.json();
+    
+    return newImg;
 }
+
 
 export { fetchImages, page };

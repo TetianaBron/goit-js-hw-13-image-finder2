@@ -9,8 +9,6 @@ import openModal from './js/openModal';
 import getRefs from './js/getRefs';
 const refs = getRefs();
 
-
-
 const loadMore = document.createElement('button');
 loadMore.className = 'load-more load-more_hidden';
 loadMore.innerText = 'Load more';
@@ -32,12 +30,16 @@ refs.searchInput.addEventListener(
     }, 500)
 );
  
-function searchImages(isReset) { 
-    fetchImages(refs.searchInput.value)
-        .then(data => renderImagesList(data.hits, isReset))
-        .then(() => loadMore.classList.remove('load-more_hidden'))
-        .catch(error => console.log(error));
+async function searchImages(isReset) { 
+    try {
+        await fetchImages(refs.searchInput.value)
+            .then(data => renderImagesList(data.hits, isReset))
+            .then(() => loadMore.classList.remove('load-more_hidden'))
+    } catch (error) {
+        console.log(error);  
+    }
 }
+
 
 function renderImagesList(images, isReset) {
     const markup = photoCardTpl(images);
