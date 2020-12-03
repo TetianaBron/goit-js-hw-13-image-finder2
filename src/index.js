@@ -6,6 +6,10 @@ import {fetchImages, page} from './js/apiService';
 import photoCardTpl from '../templates/photo-card.hbs';
 import openModal from './js/openModal';
 
+import '@pnotify/core/dist/BrightTheme.css';
+import '@pnotify/core/dist/PNotify.css';
+import { info } from '@pnotify/core';
+
 import getRefs from './js/getRefs';
 const refs = getRefs();
 
@@ -32,9 +36,13 @@ refs.searchInput.addEventListener(
  
 async function searchImages(isReset) { 
     try {
-        await fetchImages(refs.searchInput.value)
-            .then(data => renderImagesList(data.hits, isReset))
-            .then(() => loadMore.classList.remove('load-more_hidden'))
+        const { hits } = await fetchImages(refs.searchInput.value);
+        renderImagesList(hits, isReset);
+        loadMore.classList.remove('load-more_hidden');
+         info  ({
+                    text: `There are ${hits.length} pictures found!`,
+                    type: 'info'
+                });
     } catch (error) {
         console.log(error);  
     }
