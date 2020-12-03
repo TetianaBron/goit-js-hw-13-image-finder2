@@ -36,11 +36,11 @@ refs.searchInput.addEventListener(
  
 async function searchImages(isReset) { 
     try {
-        const { hits } = await fetchImages(refs.searchInput.value);
+        const { hits , totalHits } = await fetchImages(refs.searchInput.value);
         renderImagesList(hits, isReset);
         loadMore.classList.remove('load-more_hidden');
          info  ({
-                    text: `There are ${hits.length} pictures found!`,
+                    text: `There are ${totalHits} pictures found!`,
                     type: 'info'
                 });
     } catch (error) {

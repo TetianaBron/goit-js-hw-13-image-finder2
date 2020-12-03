@@ -27,7 +27,7 @@ async function fetchImages(searchQuery) {
 
     const response = await fetch(`${BASE_URL}/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${numberOfpage}&per_page=${perPage}&key=${KEY}`);
     const newImg = await response.json();
-    
+    console.log(newImg);
     return newImg;
 }
 
