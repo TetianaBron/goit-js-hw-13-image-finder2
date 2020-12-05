@@ -31,18 +31,23 @@ refs.searchInput.addEventListener(
     'input',
     debounce(() => {
         searchImages(true);
-    }, 500)
+    }, 1000)
 );
  
 async function searchImages(isReset) { 
     try {
-        const { hits , totalHits } = await fetchImages(refs.searchInput.value);
+        const { hits, totalHits } = await fetchImages(refs.searchInput.value);
         renderImagesList(hits, isReset);
-        loadMore.classList.remove('load-more_hidden');
-         info  ({
-                    text: `There are ${totalHits} pictures found!`,
-                    type: 'info'
-                });
+         info({
+                text: `There are ${totalHits} pictures found!`,
+                type: 'info'
+            });
+        if (totalHits > 12) {
+            loadMore.classList.remove('load-more_hidden')
+        }
+        else {
+            loadMore.classList.add('load-more_hidden')
+        }
     } catch (error) {
         console.log(error);  
     }
